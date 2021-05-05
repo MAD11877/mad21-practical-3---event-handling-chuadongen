@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -41,17 +42,25 @@ public class MainActivity extends AppCompatActivity {
         TextView descriptionTextView = (TextView) findViewById(R.id.descriptionTextView);
         descriptionTextView.setText(user1.description);
         Button followButton = (Button) findViewById(R.id.followButton);
+        //Prac 3
+        Intent in = getIntent();
+        TextView display = findViewById(R.id.nameTextView);
+        String prevText = (String) display.getText();
+        String rng = String.valueOf(in.getIntExtra("randomNumber",0));
+        display.setText(prevText+" "+rng);
+        //
         followButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(user1.followed){
                     user1.followed=false;
                     followButton.setText("Follow");
-                    //v.setText("Follow");
+                    Toast.makeText(getApplicationContext(),"Unfollowed",Toast.LENGTH_SHORT).show();
                 }else{
                     user1.followed=true;
                     followButton.setText("Unfollow");
-                    //v.setText("Unfollow");
+                    Toast.makeText(getApplicationContext(),"Followed",Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
